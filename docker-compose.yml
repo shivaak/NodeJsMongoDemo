@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  backend:
+    depends_on:
+      - db
+    build: .
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    command: ["npm", "start"]
+    container_name: cruddemo_backend
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_volume:/data/db
+    restart: always
+  #  command: [--auth]
+  #  environment:
+   #   - MONGO_INITDB_ROOT_USERNAME=root
+    #  - MONGO_INITDB_ROOT_PASSWORD=example
+  
+volumes:
+  mongo_volume: {}
